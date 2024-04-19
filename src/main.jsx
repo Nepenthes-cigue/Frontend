@@ -1,21 +1,86 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-//import App from './App.jsx';
+import ListeProjets from './routes/ListeProjets';
+import ErrorPage from './error-page';
+import './index.css';
+import Index from "./routes/index";
+import Home from "./routes/Home";
+import MeContacter from './routes/MeContacter';
 
-import{
+import {
   createBrowserRouter,
   RouterProvider,
-} from "react-router-dom"
+} from 'react-router-dom';
 
-import './index.css';
-import Root from "./routes/root";
+import Root,
+{
+  loader as rootLoader,
+  action as rootAction,
+} from './routes/root';
+
+import Contact, {
+  loader as contactLoader,
+  action as contactAction,
+} from "./routes/contact";
+
+import EditContact, {
+  action as editAction,
+} from "./routes/edit";
+
+import {
+  action as destroyAction
+} from "./routes/destroy";
+
 
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <Home />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/projets',
+    element: <ListeProjets />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/contact',
+    element: <MeContacter />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/admin/projets',
     element: <Root />,
-  }
-])
+    errorElement: <ErrorPage />,
+    loader: rootLoader,
+    action: rootAction,
+    children: [
+      {
+        errorElement: <ErrorPage />,
+        children: [
+          { index: true, element: <Index /> },
+          {
+            path: "contacts/:contactId",
+            element: <Contact />,
+            loader: contactLoader,
+            action: contactAction,
+          },
+          {
+            path: "contacts/:contactId/edit",
+            element: <EditContact />,
+            loader: contactLoader,
+            action: editAction,
+          },
+          {
+            path: "contacts/:contactId/destroy",
+            action: destroyAction,
+            errorElement: <div>Oops! There was an error.</div>,
+          },
+        ],
+      },
+    ],
+  },
+]);
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -23,12 +88,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <RouterProvider router={router} />
   </React.StrictMode>,
 );
-
-// ReactDOM.createRoot(document.getElementById('root')).render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-// );
-
-//Etape :
-//https://reactrouter.com/en/main/start/tutorial#the-root-route
