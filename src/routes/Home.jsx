@@ -16,11 +16,11 @@ export default function Home() {
       <div className="card">
         <h2>Biographie</h2>
         <p>
-          Lorem ipsum dolor sit amet 
-          consectetur adipisicing elit. 
-          Perspiciatis, neque assumenda 
-          autem distinctio optio quia odit, 
-          quasi deleniti, eaque in eos amet quas! 
+          Lorem ipsum dolor sit amet
+          consectetur adipisicing elit.
+          Perspiciatis, neque assumenda
+          autem distinctio optio quia odit,
+          quasi deleniti, eaque in eos amet quas!
           Eos sunt eius, obcaecati esse explicabo animi!
         </p>
       </div>

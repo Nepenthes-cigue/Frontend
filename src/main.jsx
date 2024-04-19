@@ -6,6 +6,7 @@ import './index.css';
 import Index from "./routes/index";
 import Home from "./routes/Home";
 import MeContacter from './routes/MeContacter';
+import UnProjet from './routes/UnProjet';
 
 import {
   createBrowserRouter,
@@ -46,6 +47,11 @@ const router = createBrowserRouter([
   {
     path: '/contact',
     element: <MeContacter />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/projets/:projetId',
+    element: <UnProjet />,
     errorElement: <ErrorPage />,
   },
   {
